@@ -24,9 +24,8 @@ public class LoginController {
 	UserService userService;
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public ModelAndView loginForm(HttpServletRequest request, HttpServletResponse response,@RequestParam(value = "error",
-	required = false) String error,
-			
+	public ModelAndView loginForm(HttpServletRequest request, HttpServletResponse response,
+	@RequestParam(value = "error", required = false) String error,
 	@RequestParam(value = "logout", required = false) String logout, Locale loc) {
 	ModelAndView model = new ModelAndView();
 	model.setViewName("loginForm");
