@@ -19,28 +19,27 @@ import br.estacio.service.UserService;
 
 @Controller
 public class LoginController {
-	
+
 	@Autowired
 	UserService userService;
-	
+
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView loginForm(HttpServletRequest request, HttpServletResponse response,
-	@RequestParam(value = "error", required = false) String error,
-	@RequestParam(value = "logout", required = false) String logout, Locale loc) {
-	ModelAndView model = new ModelAndView();
-	model.setViewName("loginForm");
-	
-	if (error != null) {
-	model.addObject("error", "erro de login");
-	} else if (logout != null) {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if (auth != null) {
-		new SecurityContextLogoutHandler().logout(request, response, auth);
-		}
-		model.setViewName("home");
+			@RequestParam(value = "error", required = false) String error,
+			@RequestParam(value = "logout", required = false) String logout, Locale loc) {
+		ModelAndView model = new ModelAndView();
+		model.setViewName("loginForm");
+
+		if (error != null) {
+			model.addObject("error", "erro de login");
+		} else if (logout != null) {
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			if (auth != null) {
+				new SecurityContextLogoutHandler().logout(request, response, auth);
+			}
+			model.setViewName("home");
 		}
 		return model;
-		}
-	
+	}
 
 }

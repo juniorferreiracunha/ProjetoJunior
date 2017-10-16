@@ -4,19 +4,23 @@ import org.hibernate.cfg.Environment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.authentication.event.LoggerListener;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+@Configuration
+@EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
-	@Qualifier("customUserDetailsService")
+	@Qualifier("UserDetailsService")
 	UserDetailsService userDetailsService;
 	
 	@Autowired
@@ -55,16 +59,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 	http
 	.authorizeRequests()
-	.antMatchers("/user/register/**").access("hasRole('ROLE_SYSADMIN')")
-	.antMatchers("/index.jsp", "/webjars/**", "/resources/**").permitAll()
+	.antMatchers("/index.jsp", "/webjars/**", "/resources/**", "/user/register").permitAll()
 	.anyRequest().authenticated()
 	.and()
 	.formLogin()
-	.loginPage("/login").failureUrl("/login?error").successForwardUrl("/home").permitAll()
+	.loginPage("/login").failureUrl("/login?error").successForwardUrl("/").permitAll()
 	.usernameParameter("username").passwordParameter("password")
 	.and()
 	.logout()
-	.logoutUrl("/logout").logoutSuccessUrl("/home").permitAll()
+	.logoutUrl("/logout").logoutSuccessUrl("/").permitAll()
 	.and()
 	.csrf()
 	.and()

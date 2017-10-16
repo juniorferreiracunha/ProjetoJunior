@@ -13,21 +13,20 @@ import org.springframework.web.servlet.view.JstlView;
 @Configuration
 @ComponentScan({ "br.estacio" })
 public class WebConfig extends WebMvcConfigurerAdapter {
-	
+
 	@Bean
 	public InternalResourceViewResolver viewResolver() {
-	InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-	viewResolver.setViewClass(JstlView.class);
-	viewResolver.setPrefix("/WEB-INF/views/");
-	viewResolver.setSuffix(".jsp");
-	return viewResolver;
-	}
-	
-	@Override
-	public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-	registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
-	registry.addResourceHandler("/webjars/**").addResourceLocations("/webjars/");
+		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+		viewResolver.setViewClass(JstlView.class);
+		viewResolver.setPrefix("/WEB-INF/views/");
+		viewResolver.setSuffix(".jsp");
+		return viewResolver;
 	}
 
+	@Override
+	public void addResourceHandlers(final ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+		registry.addResourceHandler("/webjars/**").addResourceLocations("/webjars/");
+	}
 
 }

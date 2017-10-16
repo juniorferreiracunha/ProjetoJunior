@@ -3,6 +3,7 @@ package br.estacio.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,9 +17,12 @@ import br.estacio.service.UserService;
 @Controller
 @RequestMapping(value = "/user/*")
 public class UserController {
-	
+
 	@Autowired
 	UserService userService;
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@RequestMapping(value = "register", method = RequestMethod.GET)
 	public ModelAndView showForm() {
@@ -34,10 +38,11 @@ public class UserController {
 		if (result.hasErrors()) {
 			model.setViewName("registerForm");
 		} else {
+			user.setPwd(passwordEncoder.encode(user.getPwd()));
+			model.setViewName("home");
 			userService.save(user);
 			System.out.println(user);
 			model.addObject("msg", "OK");
-			model.setViewName("home");
 		}
 		return model;
 	}

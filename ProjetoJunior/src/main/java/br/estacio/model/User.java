@@ -49,12 +49,9 @@ public class User {
 	@Column(nullable = false)
 	protected Timestamp timestamp;
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", email=" + email + ", pwd=" + pwd + ", Estado=" + Estado
-				+ ", userProfiles=" + userProfiles + ", timestamp=" + timestamp + "]";
+	public User() {
 	}
-
+	
 	public long getId() {
 		return id;
 	}
@@ -111,5 +108,11 @@ public class User {
 		this.userProfiles = userProfiles;
 	}
 	
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + ", email=" + email + ", pwd=" + pwd + ", Estado=" + Estado
+				+ ", userProfiles=" + userProfiles + ", timestamp=" + timestamp + "]";
+	}
+
 
 }
