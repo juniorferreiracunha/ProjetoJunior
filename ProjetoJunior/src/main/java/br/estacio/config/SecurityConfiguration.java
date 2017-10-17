@@ -1,6 +1,5 @@
 package br.estacio.config;
 
-import org.hibernate.cfg.Environment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -22,9 +21,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
 	@Qualifier("UserDetailsService")
 	UserDetailsService userDetailsService;
-	
-	@Autowired
-	private Environment env;
 	
 	@Autowired
 	public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
